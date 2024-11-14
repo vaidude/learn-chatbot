@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback and Rating Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .rating {
+            margin-bottom: 20px;
+        }
+        .rating span {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .rating .selected {
+            color: #ffcc00;
+        }
+        .rating .hover {
+            color: #ffcc00;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/home/"
+                   class="hover-effect bg-red-500 text-white px-5 py-3 rounded-lg shadow transition w-full text-center text-lg">Home</a>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <h1>Feedback Form</h1>
+        <form action="/feedback/" method="post">
+            {% csrf_token %}
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" name="feedback_text" placeholder="Write your feedback here..." required></textarea>
+
+            <div class="rating">
+                <label>Rating:</label>
+                <span id="star1" class="star" data-value="1">&#9733;</span>
+                <span id="star2" class="star" data-value="2">&#9733;</span>
+                <span id="star3" class="star" data-value="3">&#9733;</span>
+                <span id="star4" class="star" data-value="4">&#9733;</span>
+                <span id="star5" class="star" data-value="5">&#9733;</span>
+                <input type="hidden" name="rating" id="rating" required>
+            </div>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                ratingInput.value = value;
+
+                stars.forEach(star => {
+                    if (star.getAttribute('data-value') <= value) {
+                        star.classList.add('selected');
+                    } else {
+                        star.classList.remove('selected');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseenter', function() {
+                const value = this.getAttribute('data-value');
+                stars.forEach((star, index) => {
+                    if (index < value) {
+                        star.classList.add('hover');
+                    } else {
+                        star.classList.remove('hover');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseleave', function() {
+                stars.forEach(star => {
+                    star.classList.remove('hover');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

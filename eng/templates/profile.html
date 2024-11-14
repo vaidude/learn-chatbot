@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #e0f7fa, #80deea);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Profile Container */
+        .profile-container {
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        /* Header */
+        .profile-header h2 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        /* Profile Picture */
+        .profile-pic img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #80deea;
+            margin-bottom: 15px;
+        }
+
+        /* Profile Info */
+        .profile-info label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .btn-edit, .btn-save {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-edit {
+            background-color: #26a69a;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .btn-edit:hover {
+            background-color: #1f8f80;
+        }
+
+        .btn-save {
+            background-color: #42a5f5;
+            color: #fff;
+            display: none;
+        }
+
+        .btn-save:hover {
+            background-color: #1e88e5;
+        }
+
+        /* Edit Section */
+        .edit-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .edit-section input, .edit-section select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>User Profile</h2>
+    </div>
+
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+        <img src="{{ user.Profile_Pic.url|default:'https://i.pinimg.com/originals/83/bc/8b/83bc8b88cf6bc4b4e04d153a418cde62.jpg' }}" alt="Profile Picture">
+    </div>
+
+    <!-- Profile Info -->
+    <div class="profile-info">
+        <label>Name:</label>
+        <p id="name">{{ user.Name }}</p>
+        <label>Email:</label>
+        <p id="email">{{ user.Email }}</p>
+        <label>Phone:</label>
+        <p id="phone">{{ user.Phone }}</p>
+        <label>Level:</label>
+        <p id="level">{{ user.level|default:"Not specified" }}</p>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <button id="editProfileBtn" class="btn-edit">Edit Profile</button>
+    <button id="editProfileBtn" class="btn-edit"><a href="/home/">Back To Home</a></button>
+    <!-- Edit Profile Section -->
+    <div class="edit-section" id="editSection">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'editprofile' %}">
+            {% csrf_token %}
+            <label for="editName">Name</label>
+            <input type="text" id="editName" name="name" value="{{ user.Name }}">
+
+            <label for="editEmail">Email</label>
+            <input type="email" id="editEmail" name="email" value="{{ user.Email }}">
+
+            <label for="editPhone">Phone</label>
+            <input type="text" id="editPhone" name="phone" value="{{ user.Phone }}">
+
+            <label for="editLevel">Level</label>
+            <select id="editLevel" name="level">
+                <option value="beginner" {% if user.level == 'beginner' %}selected{% endif %}>Beginner</option>
+                <option value="intermediate" {% if user.level == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                <option value="expert" {% if user.level == 'expert' %}selected{% endif %}>Expert</option>
+            </select>
+
+            <label for="editProfilePic">Profile Picture</label>
+            <input type="file" id="editProfilePic" name="profile_pic">
+
+            <button type="submit" class="btn-save">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const editSection = document.getElementById('editSection');
+    const saveBtn = document.querySelector('.btn-save');
+
+    // Toggle the visibility of the edit section
+    editProfileBtn.addEventListener('click', function() {
+        if (editSection.style.display === 'none' || editSection.style.display === '') {
+            editSection.style.display = 'block';
+            saveBtn.style.display = 'block';
+            editProfileBtn.textContent = 'Cancel';
+        } else {
+            editSection.style.display = 'none';
+            saveBtn.style.display = 'none';
+            editProfileBtn.textContent = 'Edit Profile';
+        }
+    });
+</script>
+
+</body>
+</html>

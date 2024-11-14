@@ -1,0 +1,288 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1c1c1c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .chatbox {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #444;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            max-width: 70%;
+            border-radius: 20px;
+            margin: 5px;
+            word-wrap: break-word;
+            position: relative;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            max-width: 70%;
+            border-radius: 20px;
+            margin: 5px;
+            word-wrap: break-word;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .user-message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-top: 8px solid #28a745;
+        }
+        .bot-message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #007bff;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .control-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .control-buttons button {
+            background-color: #007bff;
+        }
+        .control-buttons button:hover {
+            background-color: #0056b3;
+        }
+        textarea {
+            width: 100%;
+            height: 50px;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            background-color: #222;
+            color: white;
+        }
+        /* Avatar Video Styling */
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        .avatar-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Voice Chatbot</h2>
+        <div class="chatbox" id="chatbox">
+            <!-- Messages will appear here -->
+        </div>
+
+        <div class="control-buttons">
+            <button id="startRecord">Record</button>
+            <button id="pauseRecord" disabled>Pause</button>
+            <button id="stopRecord" disabled>Stop</button>
+        </div>
+        <textarea id="messageInput" placeholder="Converted text will appear here..." readonly></textarea>
+        <button id="sendMessage" disabled>Send Message</button>
+    </div>
+
+    <script>
+        let recognition;
+        let isRecording = false;
+
+        // Avatar video setup
+        let avatar = document.createElement('div');
+        avatar.className = 'avatar-container';
+        
+        let avatarVideo = document.createElement('video');
+        avatarVideo.src = "{% static 'img/avatar.mp4' %}"; // Video path
+        avatarVideo.muted = true;
+        avatarVideo.loop = true;
+        avatarVideo.autoplay = true; // Automatically play the video
+        avatarVideo.setAttribute("playsinline", "true");
+        avatar.appendChild(avatarVideo);
+
+        // Initializes speech recognition if available
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window) {
+                recognition = new webkitSpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.interimResults = true;
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = function() {
+                    isRecording = true;
+                    toggleRecordButtons();
+                };
+
+                recognition.onend = function() {
+                    isRecording = false;
+                    toggleRecordButtons();
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('messageInput').value = transcript;
+                    document.getElementById('sendMessage').disabled = false;
+                };
+
+                recognition.onerror = function(event) {
+                    console.error("Speech recognition error:", event.error);
+                };
+            } else {
+                alert("Speech recognition is not supported in this browser.");
+            }
+        }
+
+        function toggleRecordButtons() {
+            document.getElementById('startRecord').disabled = isRecording;
+            document.getElementById('pauseRecord').disabled = !isRecording;
+            document.getElementById('stopRecord').disabled = !isRecording;
+        }
+
+        document.getElementById('startRecord').addEventListener('click', function() {
+            initSpeechRecognition();
+            recognition.start();
+        });
+
+        document.getElementById('pauseRecord').addEventListener('click', function() {
+            recognition.stop();
+        });
+
+        document.getElementById('stopRecord').addEventListener('click', function() {
+            recognition.stop();
+        });
+
+        document.getElementById('sendMessage').addEventListener('click', function() {
+            const text = document.getElementById('messageInput').value;
+            appendMessage('User', text, 'user-message');
+            sendTextToDjango(text);
+        });
+
+        function sendTextToDjango(text) {
+            console.log("Sending message to Django:", text);
+
+            fetch('/process_voice/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: text
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from Django:', data);
+                appendMessage('Bot', data.response, 'bot-message');
+                playAudioWithVideo(data.audio_url);
+            })
+            .catch(error => {
+                console.error('Error sending request to Django:', error);
+            });
+        }
+
+        function appendMessage(sender, message, className) {
+            const chatbox = document.getElementById('chatbox');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+
+            if (className === 'bot-message') {
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'message-content';
+
+                botMessageDiv.appendChild(avatar); // Append avatar container directly
+                botMessageDiv.innerHTML += `<span>${message}</span>`;
+                messageDiv.appendChild(botMessageDiv);
+            } else {
+                messageDiv.innerText = `${sender}: ${message}`;
+            }
+
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function playAudioWithVideo(url) {
+            const audio = new Audio(url);
+            
+            // Automatically play avatar video when audio starts
+            avatarVideo.play();
+            audio.play();
+
+            // Stop avatar video when audio ends
+            audio.onended = () => {
+                avatarVideo.pause();
+                avatarVideo.currentTime = 0; // Reset to start
+            };
+        }
+    </script>
+</body>
+</html>

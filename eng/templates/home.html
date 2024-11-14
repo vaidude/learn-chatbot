@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learna AI Home Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex">
+
+    <!-- Sidebar Section -->
+    <div class="w-1/4 bg-white p-5 h-screen border-r">
+        <div class="flex flex-col items-center">
+            <img src="https://th.bing.com/th/id/OIP.9MVCnQF8cB74oSM8d1D5SQHaE6?rs=1&pid=ImgDetMain" class="rounded-full w-24 h-24 mb-4" alt="Profile">
+            <h2 class="text-xl font-semibold mb-2">Welcome, User</h2>
+            <button class="bg-red-500 text-white py-2 px-4 rounded-full mb-4"><a href="/logout/">Logout</a></button>
+            <div class="flex flex-col space-y-4 mt-4">
+                <a href="/profile/" class="text-lg text-gray-600 hover:text-blue-500">Profile</a>
+                <a href="/feedback/" class="text-lg text-gray-600 hover:text-blue-500">Review</a>
+                <a href="#" class="text-lg text-gray-600 hover:text-blue-500">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="flex-1 p-5">
+
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center space-x-4">
+                <span class="text-2xl font-bold">🔥 0</span>
+                <span class="text-lg">3:16</span>
+            </div>
+            <img src="https://th.bing.com/th/id/OIP.KpXfeDncxEOsjAfFjoTctAHaE8?rs=1&pid=ImgDetMain" class="rounded-full w-12 h-12" alt="Profile">
+        </div>
+
+        <!-- Nav Icons Section -->
+        <div class="flex justify-center mb-6 space-x-4">
+            <img src="https://th.bing.com/th/id/OIP.9MVCnQF8cB74oSM8d1D5SQHaE6?rs=1&pid=ImgDetMain" alt="Badge" class="w-10 h-10 rounded-full">
+            <img src="https://th.bing.com/th/id/OIP.KpXfeDncxEOsjAfFjoTctAHaE8?rs=1&pid=ImgDetMain" alt="Badge" class="w-10 h-10 rounded-full">
+            <img src="https://img.graphicsurf.com/2020/06/Kid-English-learning-vector-design.jpg" alt="Badge" class="w-10 h-10 rounded-full">
+            <img src="https://th.bing.com/th/id/OIP.F03ygGzES8CNgFIfjev6ugHaGN?rs=1&pid=ImgDetMain" alt="Badge" class="w-10 h-10 rounded-full">
+        </div>
+
+        <!-- Streak Section -->
+        <div class="bg-yellow-100 p-5 rounded-lg mb-6 shadow-lg">
+            <div class="text-xl font-semibold mb-4">This Week's Streak</div>
+            <div class="flex justify-between">
+                <div class="text-center">
+                    Sun <br> ❌
+                </div>
+                <div class="text-center">
+                    Mon <br> ❌
+                </div>
+                <div class="text-center">
+                    Tue <br> ❌
+                </div>
+                <div class="text-center">
+                    Wed <br> ❌
+                </div>
+                <div class="text-center">
+                    Thu <br> ❌
+                </div>
+                <div class="text-center">
+                    Fri <br> ❌
+                </div>
+                <div class="text-center">
+                    Sat <br> ⭕
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Learners Section -->
+        <div class="bg-blue-700 text-white p-5 rounded-lg mb-6">
+            <div class="text-xl font-semibold mb-2">4,000,000+ Active Learners</div>
+            <p>Connect with Real People</p>
+            <button class="bg-white text-blue-700 py-2 px-4 rounded-full mt-4">Practice Now</button>
+            <div class="flex justify-center mt-4 space-x-2">
+                <img src="https://th.bing.com/th/id/OIP.7Z5F1_-_8NF_j8Tq-tpZgQHaE8?rs=1&pid=ImgDetMain" class="rounded-full w-8 h-8" alt="Person">
+                <img src="https://th.bing.com/th/id/OIP.02yV2EezW2khilKtz6_zAwHaEG?rs=1&pid=ImgDetMain" class="rounded-full w-8 h-8" alt="Person">
+                <img src="https://img.graphicsurf.com/2020/06/Kid-English-learning-vector-design.jpg" class="rounded-full w-8 h-8" alt="Person">
+                <img src="https://th.bing.com/th/id/OIP.F03ygGzES8CNgFIfjev6ugHaGN?rs=1&pid=ImgDetMain" class="rounded-full w-8 h-8" alt="Person">
+            </div>
+        </div>
+
+        <!-- AI Tutor Section -->
+         
+        <div class="bg-green-500 text-white p-5 rounded-lg mb-6">
+            
+            <div class="flex items-center justify-center ">
+                <div class="relative group">
+            <div class="text-xl font-semibold mb-2">AI-Powered English Tutor</div>
+            <p>ARYA Personal Teacher</p>
+    <button
+      class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
+    >
+      <span
+        class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      ></span>
+
+      <span class="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
+        <div class="relative z-10 flex items-center space-x-2">
+          <span class="transition-all duration-500 group-hover:translate-x-1"
+            ><a href='/chat/'>Let's get started</a></span
+          >
+          <svg
+            class="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
+            data-slot="icon"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+      </span>
+    </button>
+  
+
+            <img src="https://images.hindustantimes.com/tech/img/2020/10/08/960x540/1_m9IJdAYW04MYh75ivpwUNA_1602159846178_1602159863228.png" class="mt-4 w-100 h-80 rounded-lg shadow-lg" alt="AI Tutor Illustration">
+        </div>
+    </div>
+</div>
+        <!-- Learning Section -->
+        <div class="my-4">
+            <h5 class="text-lg font-semibold mb-4">More Learning for You</h5>
+            <div class="flex justify-between space-x-4">
+                <div class="text-center">
+                    <img src="https://th.bing.com/th/id/OIP.9MVCnQF8cB74oSM8d1D5SQHaE6?rs=1&pid=ImgDetMain" class="w-16 h-16 object-cover rounded-lg mb-2" alt="Grammar">
+                    <p>Grammar</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://th.bing.com/th/id/OIP.KpXfeDncxEOsjAfFjoTctAHaE8?rs=1&pid=ImgDetMain" class="w-16 h-16 object-cover rounded-lg mb-2" alt="Grammar Correction">
+                    <p>Grammar Correction</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://img.graphicsurf.com/2020/06/Kid-English-learning-vector-design.jpg" class="w-16 h-16 object-cover rounded-lg mb-2" alt="Grammar Quiz">
+                    <p>Grammar Quiz</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
+        <div class="flex justify-around py-4 mt-6 bg-white border-t shadow-md">
+            <a href="#" class="text-center text-sm text-gray-600 hover:text-blue-500">
+                <i class="fas fa-home text-xl mb-1"></i><br>Home
+            </a>
+            <a href="#" class="text-center text-sm text-gray-600 hover:text-blue-500">
+                <i class="fas fa-crown text-xl mb-1"></i><br>Get PRO
+            </a>
+            <a href="#" class="text-center text-sm text-gray-600 hover:text-blue-500">
+                <i class="fas fa-compass text-xl mb-1"></i><br>Explore
+            </a>
+            <a href="#" class="text-center text-sm text-gray-600 hover:text-blue-500">
+                <i class="fas fa-chart-line text-xl mb-1"></i><br>Progress
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
