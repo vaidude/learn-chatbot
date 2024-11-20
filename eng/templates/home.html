@@ -51,32 +51,24 @@
         </div>
 
         <!-- Streak Section -->
-        <div class="bg-yellow-100 p-5 rounded-lg mb-6 shadow-lg">
-            <div class="text-xl font-semibold mb-4">This Week's Streak</div>
-            <div class="flex justify-between">
-                <div class="text-center">
-                    Sun <br> ❌
-                </div>
-                <div class="text-center">
-                    Mon <br> ❌
-                </div>
-                <div class="text-center">
-                    Tue <br> ❌
-                </div>
-                <div class="text-center">
-                    Wed <br> ❌
-                </div>
-                <div class="text-center">
-                    Thu <br> ❌
-                </div>
-                <div class="text-center">
-                    Fri <br> ❌
-                </div>
-                <div class="text-center">
-                    Sat <br> ⭕
-                </div>
-            </div>
+        <div id="twist-section" class="bg-yellow-100 p-5 rounded-lg mb-6 shadow-lg">
+            <div class="text-xl font-semibold mb-4">This Week's Twist</div>
+            <div id="twist-days" class="flex justify-between"></div>
         </div>
+        <script>
+            // Generate random twist for each day
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const twistContainer = document.getElementById('twist-days');
+        
+            // Loop through each day and assign a random status
+            days.forEach(day => {
+                const randomStatus = Math.random() > 0.5 ? '⭕' : '❌'; // 50% chance of either
+                const dayElement = document.createElement('div');
+                dayElement.className = 'text-center';
+                dayElement.innerHTML = `${day} <br> ${randomStatus}`;
+                twistContainer.appendChild(dayElement);
+            });
+        </script>
 
         <!-- Active Learners Section -->
         <div class="bg-blue-700 text-white p-5 rounded-lg mb-6">

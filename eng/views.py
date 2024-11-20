@@ -1,3 +1,4 @@
+import datetime
 import json
 from pyexpat.errors import messages
 from django.shortcuts import render,redirect,HttpResponse
@@ -9,6 +10,7 @@ def index(request):
     return render(request, 'index.html')
 def chatbot(request):
     return render(request,'chatbot.html')
+
 def home(request):
     if 'useremail' in request.session:
         email = request.session['useremail']
@@ -57,7 +59,7 @@ def LoginUser(request):
          return render(request, 'login.html')
 def logout(request):
     request.session.flush()
-    return redirect('login')
+    return redirect('index')
     
 def adlogin(request):
     if request.method=='POST':
@@ -104,7 +106,7 @@ def editprofile(request):
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         level=request.POST.get('level')
-        profile_picture = request.FILES.get('profile_pic')
+        profile_pic= request.FILES.get('profile_pic')
 
         # Update user profile fields
         user.Name = name
@@ -113,8 +115,8 @@ def editprofile(request):
         user.level=level
         
         # Update profile picture if provided
-        if profile_picture:
-            user.profile_pic = profile_picture
+        if profile_pic:
+            user.profile_pic = profile_pic
 
         # Save the updated User
         user.save()
@@ -336,3 +338,4 @@ def process_voice(request):
         except Exception as e:
             print("Error in processing voice:", e)
             return JsonResponse({'response': 'An error occurred, please try again.'})
+

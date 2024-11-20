@@ -36,6 +36,7 @@ urlpatterns = [
     path('deleteuser/<int:id>', views.deleteuser, name='deleteuser'),
     path('feedback/', views.feedback_rate, name='feedback'),
     path('feedbacklist/', views.feedbacklist, name='feedbacklist'),
+    
  
     
 

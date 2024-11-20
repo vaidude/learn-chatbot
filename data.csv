@@ -1,4 +1,8 @@
 "Question","Answer","Keywords"
+"Hi","Hello how can I help you","hi,Hi"
+"Hello","Hello how can I help you","hello,Hello"
+"Hey","Hello how can I help you","hey,Hey"
+"Who are you?","Im your virtual assistant","who,Who"
 "What is a noun?","A noun is a word that names a person, place, thing, or idea. Examples include 'teacher,' 'city,' and 'happiness.'","noun, person, place, thing, idea"
 "What is a verb?","A verb is a word that describes an action or a state. For example, 'run,' 'is,' and 'think' are verbs.","verb, action, state"
 "Can you explain adjectives?","An adjective is a word that describes a noun, giving more information about it, like 'big,' 'blue,' or 'happy.'","adjective, describes, noun"
